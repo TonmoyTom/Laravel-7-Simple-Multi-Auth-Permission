@@ -81,10 +81,10 @@ class RoleSeeder extends Seeder
                 $permission->assignRole($rolesuperadmin);
             }
         }
-        // DB::table('model_has_roles')->insert([
-        //     'role_id' => 1,
-        //     'model_type' => 'App\User',
-        //     'model_id' => 1
-        // ]);
+        DB::table('model_has_roles')->insert([
+            'role_id' => 1,
+            'model_type' => 'App\User',
+            'model_id' => 1
+        ]);
     }
 }
