@@ -16,6 +16,7 @@ class AdminController extends Controller
 {
 
 
+
     public $users;
     public function __construct()
     {
@@ -70,7 +71,7 @@ class AdminController extends Controller
         if ($request->isMethod('post')) {
             $data = $request->all();
             $rules = [
-                'name' => 'required',
+                'name' => 'required|unique:users,name',
                 'email' => 'required',
             ];
             $customMessage = [
@@ -168,7 +169,7 @@ class AdminController extends Controller
             'name' => 'required|unique:users',
             'email' => 'required',
             'password' => 'required',
-            'roles' => 'required',
+
             'isAdmin' => 'required',
         ];
         $customMessage = [
@@ -197,7 +198,10 @@ class AdminController extends Controller
 
                 Mail::to($request->email)->send(new UserSendmail($data)); //default mail j pataise
             } else {
-                return redirect()->route('users.create')->with('error', 'Role Not Defiend!');
+
+                $users->save();
+                Mail::to($request->email)->send(new UserSendmail($data)); //default mail j pataise
+                return redirect()->route('users.all')->with('success', 'User Create!');
             }
             $users->save();
 
@@ -250,14 +254,13 @@ class AdminController extends Controller
 
 
         $rules = [
-            'name' => 'required|max:100',
+            'name' => 'required|max:100|unique:users,name,' . $ids,
             'email' => 'required|',
 
         ];
         $customMessage = [
             'name.required' => 'Name Is Requerd',
             'email.required' => 'email Is Requerd',
-            'roles.required' => 'Role Is Requerd',
         ];
 
         $this->validate($request, $rules, $customMessage);
@@ -277,9 +280,10 @@ class AdminController extends Controller
             if ($request->roles) {
                 $users->assignRole($request->roles);
                 $users->save();
-                return redirect()->route('users.all')->with('error', 'Role Not Defiend!');
+                return redirect()->route('users.all')->with('success', 'User Create!');
             } else {
-                return redirect()->route('users.create')->with('error', 'Role Not Defiend!');
+                $users->save();
+                return redirect()->route('users.all')->with('success', 'User Create!');
             }
 
             return redirect()->route('users.all')->with('success', 'User Create!');
@@ -288,8 +292,10 @@ class AdminController extends Controller
                 if ($request->roles) {
                     $users->assignRole($request->roles);
                     $users->save();
+                    return redirect()->route('users.all')->with('success', 'User Create!');
                 } else {
-                    return redirect()->route('users.create')->with('error', 'Role Not Defiend!');
+                    $users->save();
+                    return redirect()->route('users.all')->with('success', 'User Create!');
                 }
                 //$users->save();
                 // dd($user);
