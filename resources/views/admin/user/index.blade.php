@@ -51,10 +51,17 @@
                             {{ $users->email ?? '' }}
                         </td>
                         <td>
+
+                            @if ($users->isAdmin == 1)
+                                @foreach($users->roles as $parm)
+                                <span class="badge badge-primary">{{$parm->name}}</span>
+                                @endforeach
+
+                            @else
+                            <span class="badge badge-primary">user</span>
+                            @endif
                             
-                            @foreach($users->roles as $parm)
-                            <span class="badge badge-primary">{{$parm->name}}</span>
-                            @endforeach
+                           
                         </td>
                         <td>
                             @if(Auth::user()->can('users.view'))
