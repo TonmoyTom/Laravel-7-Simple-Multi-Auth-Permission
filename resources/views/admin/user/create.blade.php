@@ -58,6 +58,7 @@
                         <option style="color: #000;" value="{{$item->id}}">{{$item->name}}..</option>
                         @endforeach
                     </select>
+                    <p class=" btn-success" style="font-size: 16px;">If you want to create a user, you do not have to select a role.</p>
                     @error('roles')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -74,13 +75,13 @@
                     <label for="recipient-name" class="col-form-label" style="color: #000;">Confirm Password</label>
                     <input type="password" class="form-control" name="cpassword" style="color: #000;">
                   </div>
-                  <div class="form-check">
+                  <div class="form-group" style="margin-left: 19px;">
                     <input type="hidden" name="isAdmin" value="0"/>
                     <input type="checkbox" class="form-check-input" name="isAdmin"  value="1">
-                    <label class="form-check-label" for="checkPermission">Can be Access the Dashboard</label>
+                    <label class="form-check-label" for="checkPermission" style="font-size: 16px;">Can be Access the Dashboard</label>
                 </div>
                  
-                    <div class="form-group">
+                    <div class="form-group" >
                         <button class="btn btn-success" type="submit" >Submit</button>
                         <a class="btn btn-info" href="{{ route('admin.home') }}">
                            Back
