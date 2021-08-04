@@ -27,15 +27,7 @@ class RoleSeeder extends Seeder
 
         $permissions = [
 
-            [
-                'group_name' => 'userhome',
-                'permissions' => [
-                    // admin Permissions
-                    'home',
-
-
-                ]
-            ],
+            
 
             [
                 'group_name' => 'home',
@@ -56,6 +48,7 @@ class RoleSeeder extends Seeder
                     'users.create',
                     'users.store',
                     'users.edit',
+                    'users.view',
                     'users.update',
                     'users.delete',
 
