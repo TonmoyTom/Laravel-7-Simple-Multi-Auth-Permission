@@ -59,11 +59,10 @@ class RoleController extends Controller
 
         $rules = [
             'name' => 'required|max:100|unique:roles',
-            'permissions' => 'required',
+
         ];
         $customMessage = [
             'name.required' => 'Name Is Requerd',
-            'permissions.required' => 'Permissions Not Select',
         ];
 
         $this->validate($request, $rules, $customMessage);
